@@ -1,0 +1,10 @@
+[
+  { "cat": "Electrónica", "nombre": "iPhone 15 Pro", "desc": "Titanio, 128GB, Cámara 48MP.", "oferta": true },
+  { "cat": "Electrónica", "nombre": "Audífonos Sony", "desc": "Cancelación de ruido profesional.", "oferta": true },
+  { "cat": "Moda", "nombre": "Tenis Nike Air", "desc": "Tallas disponibles 25-29.", "oferta": false },
+  { "cat": "Hogar", "nombre": "Cafetera Express", "desc": "Acero inoxidable, 15 bares.", "oferta": false },
+  { "cat": "Herramientas", "nombre": "Taladro Inalámbrico", "desc": "20V con maletín incluido.", "oferta": true },
+  { "cat": "Salud", "nombre": "Masajeador Pro", "desc": "Relajación muscular profunda.", "oferta": false },
+  { "cat": "Juguetes", "nombre": "Lego Star Wars", "desc": "Set de colección 700 piezas.", "oferta": true },
+  { "cat": "Hogar", "nombre": "Freidora de Aire", "desc": "Capacidad 5L, panel digital.", "oferta": false }
+]
