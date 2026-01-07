@@ -1,7 +1,114 @@
-[
-  { "cat": "Electrónica", "nombre": "iPhone 15 Pro Max", "desc": "Pantalla Super Retina, Titanio natural, 256GB.", "oferta": true },
-  { "cat": "Electrónica", "nombre": "Samsung Galaxy S24 Ultra", "desc": "IA integrada, Cámara 200MP, S-Pen incluido.", "oferta": true },
-  { "cat": "Moda", "nombre": "Tenis Nike Air Force 1", "desc": "Piel genuina, color blanco clásico, todas las tallas.", "oferta": false },
-  { "cat": "Hogar", "nombre": "Freidora de Aire Ninja", "desc": "Capacidad 3.8L, 4 funciones programables.", "oferta": true },
-  { "cat": "Deportes", "nombre": "Bicicleta de Montaña R29", "desc": "Cuadro de aluminio, 21 velocidades Shimano.", "oferta": true }
-]
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Pro Inteligente</title>
+    <style>
+        body { 
+            background-image: url('5486.jpg'); background-size: cover; background-position: center; background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif; color: white; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+        .contador-oferta {
+            background: rgba(255, 152, 0, 0.9); color: black; padding: 10px 20px; border-radius: 10px; font-weight: bold; margin-bottom: 20px; text-align: center; border: 2px solid white;
+        }
+        .buscador-contenedor {
+            background: rgba(255, 255, 255, 0.95); padding: 5px 25px; border-radius: 50px; width: 90%; max-width: 500px; display: flex; align-items: center; margin-bottom: 20px;
+        }
+        .buscador-contenedor input {
+            border: none; width: 100%; padding: 12px; font-size: 1.1rem; outline: none; background: transparent; color: #333;
+        }
+        .categorias-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .btn-categoria {
+            background: rgba(0, 0, 0, 0.8); color: white; border: 2px solid #28a745; padding: 10px 18px; border-radius: 30px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-categoria:hover { background: #28a745; transform: scale(1.05); }
+        .contenedor-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; max-width: 1100px; }
+        .tarjeta-producto {
+            background: rgba(0, 0, 0, 0.85); padding: 25px; border-radius: 20px; text-align: center; backdrop-filter: blur(12px); border: 2px solid #28a745; position: relative; transition: 0.3s;
+        }
+        .es-oferta { border: 2px solid #ff9800 !important; box-shadow: 0 0 15px rgba(255, 152, 0, 0.4); }
+        .label-oferta {
+            position: absolute; top: -10px; right: 10px; background: #ff9800; color: black; padding: 5px 15px; border-radius: 10px; font-weight: bold; font-size: 0.8rem;
+        }
+        .btn-whatsapp { background: #25D366; color: white; text-decoration: none; padding: 14px; display: block; border-radius: 12px; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body onload="iniciar()">
+
+    <audio id="musicaFondo" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg"></audio>
+
+    <div class="contador-oferta">⚠️ OFERTAS TERMINAN EN: <span id="reloj">00:00:00</span></div>
+
+    <div class="buscador-contenedor">
+        <input type="text" placeholder="¿Qué estás buscando hoy?" id="miBusqueda" onkeyup="buscarTexto()">
+        <span style="color:#28a745">🔍</span>
+    </div>
+
+    <div class="categorias-menu">
+        <button class="btn-categoria" onclick="cargarProductos('Todas')">📋 Todas</button>
+        <button class="btn-categoria" onclick="cargarProductos('Ofertas')">🔥 Ofertas</button>
+        <button class="btn-categoria" onclick="cargarProductos('Electrónica')">⚡ Electrónica</button>
+        <button class="btn-categoria" onclick="cargarProductos('Moda')">👕 Moda</button>
+    </div>
+
+    <div class="contenedor-productos" id="listaProductos"></div>
+
+    <script>
+        let misProductos = [];
+
+        async function iniciar() {
+            try {
+                // Conectamos con el archivo externo
+                const res = await fetch('productos.json');
+                misProductos = await res.json();
+                cargarProductos('Todas');
+            } catch (e) { 
+                console.error("Error cargando productos. Recuerda ver esto desde el link de GitHub Pages.", e); 
+            }
+            actualizarReloj();
+            setInterval(actualizarReloj, 1000);
+        }
+
+        function cargarProductos(categoria) {
+            const contenedor = document.getElementById('listaProductos');
+            contenedor.innerHTML = "";
+            const filtrados = (categoria === 'Todas') ? misProductos : 
+                             (categoria === 'Ofertas') ? misProductos.filter(p => p.oferta) : 
+                             misProductos.filter(p => p.cat === categoria);
+
+            filtrados.forEach(p => {
+                const claseOferta = p.oferta ? 'es-oferta' : '';
+                const label = p.oferta ? '<div class="label-oferta">OFERTA 🔥</div>' : '';
+                contenedor.innerHTML += `
+                    <div class="tarjeta-producto ${claseOferta}">
+                        ${label}
+                        <span style="font-size:0.7rem; color:#28a745">${p.cat}</span>
+                        <h3>${p.nombre}</h3>
+                        <p style="color:#ccc; font-size:0.9rem">${p.desc}</p>
+                        <a href="https://wa.me/523334036895?text=Info de: ${p.nombre}" class="btn-whatsapp" onclick="reproducir()">WHATSAPP</a>
+                    </div>`;
+            });
+        }
+
+        function buscarTexto() {
+            let entrada = document.getElementById('miBusqueda').value.toLowerCase();
+            let tarjetas = document.getElementsByClassName('tarjeta-producto');
+            for (let i = 0; i < tarjetas.length; i++) {
+                let titulo = tarjetas[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                tarjetas[i].style.display = titulo.includes(entrada) ? "block" : "none";
+            }
+        }
+
+        function actualizarReloj() {
+            const ahora = new Date();
+            const fin = new Date(); fin.setHours(23, 59, 59);
+            const dif = fin - ahora;
+            const h = Math.floor((dif / 3600000) % 24), m = Math.floor((dif / 60000) % 60), s = Math.floor((dif / 1000) % 60);
+            document.getElementById("reloj").innerHTML = `${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+        }
+
+        function reproducir() { document.getElementById("musicaFondo").play(); }
+    </script>
+</body>
+</html>
