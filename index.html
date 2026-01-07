@@ -1,25 +1,175 @@
-<script>
-    function buscarProducto() {
-        // 1. Obtenemos lo que el usuario escribió
-        let entrada = document.getElementById('miBusqueda').value.toLowerCase();
-        // 2. Obtenemos todas las tarjetas de productos
-        let productos = document.getElementsByClassName('tarjeta-producto');
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Premium -lanzamiento</title>
+    <style>
+        body { 
+            background-image: url('5486.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
+            color: white; 
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-        // 3. Revisamos cada producto
-        for (let i = 0; i < productos.length; i++) {
-            let titulo = productos[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
-            
-            // 4. Si el título contiene lo que buscamos, se queda. Si no, se oculta.
-            if (titulo.includes(entrada)) {
-                productos[i].style.display = "block";
-            } else {
-                productos[i].style.display = "none";
+        .buscador-contenedor {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 25px;
+            border-radius: 50px;
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .buscador-contenedor input {
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            outline: none;
+            background: transparent;
+            color: #333;
+        }
+
+        .contenedor-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .tarjeta-producto {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            border: 2px solid #28a745;
+            transition: 0.3s;
+        }
+
+        .tarjeta-producto:hover {
+            transform: translateY(-5px);
+            border-color: #25D366;
+        }
+
+        .caracteristicas {
+            text-align: left;
+            font-size: 0.95rem;
+            background: rgba(255,255,255,0.08);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            display: block;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn-whatsapp:hover { background: #128C7E; box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4); }
+    </style>
+</head>
+<body>
+
+    <audio id="musicaFondo" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg">
+    </audio>
+
+    <h1 style="text-shadow: 3px 3px 15px black; font-size: 2.5rem; margin-bottom: 10px;">Catálogo Inteligente</h1>
+    <p style="margin-bottom: 30px; text-shadow: 1px 1px 5px black;">Busca y consulta por WhatsApp sin intermediarios</p>
+
+    <div class="buscador-contenedor">
+        <input type="text" placeholder="Escribe: Audífonos, Reloj o Cámara..." id="miBusqueda" onkeyup="buscarProducto()">
+        <span style="font-size: 1.5rem;">🔍</span>
+    </div>
+
+    <div class="contenedor-productos" id="listaProductos">
+        
+        <div class="tarjeta-producto">
+            <h3>Audífonos Sony Noise Cancelling</h3>
+            <div class="caracteristicas">
+                <strong>Ficha Técnica:</strong>
+                <ul>
+                    <li>Cancelación de ruido activa</li>
+                    <li>30 horas de batería</li>
+                    <li>Carga rápida vía USB-C</li>
+                    <li>Micrófono para llamadas HD</li>
+                </ul>
+            </div>
+            <a href="https://wa.me/523334036895?text=Hola,%20me%20interesan%20los%20Audifonos%20Sony" class="btn-whatsapp" onclick="reproducir()">CONSULTAR PRECIO</a>
+        </div>
+
+        <div class="tarjeta-producto">
+            <h3>Smartwatch Serie 9 Pro</h3>
+            <div class="caracteristicas">
+                <strong>Ficha Técnica:</strong>
+                <ul>
+                    <li>Pantalla AMOLED Always-on</li>
+                    <li>Sensor de ritmo cardíaco y oxígeno</li>
+                    <li>Resistente al agua (50m)</li>
+                    <li>Compatible con iOS y Android</li>
+                </ul>
+            </div>
+            <a href="https://wa.me/523334036895?text=Hola,%20me%20interesa%20el%20Smartwatch%20Serie%209" class="btn-whatsapp" onclick="reproducir()">CONSULTAR PRECIO</a>
+        </div>
+
+        <div class="tarjeta-producto">
+            <h3>Cámara Mirrorless 4K</h3>
+            <div class="caracteristicas">
+                <strong>Ficha Técnica:</strong>
+                <ul>
+                    <li>Sensor de 24.2 Megapíxeles</li>
+                    <li>Grabación de video en 4K 60fps</li>
+                    <li>Enfoque automático al ojo</li>
+                    <li>Incluye lente 18-55mm</li>
+                </ul>
+            </div>
+            <a href="https://wa.me/523334036895?text=Hola,%20me%20interesa%20la%20Camara%204K" class="btn-whatsapp" onclick="reproducir()">CONSULTAR PRECIO</a>
+        </div>
+
+    </div>
+
+    <script>
+        function buscarProducto() {
+            let entrada = document.getElementById('miBusqueda').value.toLowerCase();
+            let productos = document.getElementsByClassName('tarjeta-producto');
+
+            for (let i = 0; i < productos.length; i++) {
+                let titulo = productos[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                // Si lo que el usuario escribe está en el título, mostramos el producto
+                if (titulo.includes(entrada)) {
+                    productos[i].style.display = "block";
+                } else {
+                    productos[i].style.display = "none";
+                }
             }
         }
-    }
 
-    // Esto hace que la música suene al hacer clic en cualquier botón
-    function reproducir() {
-        document.getElementById("musicaFondo").play();
-    }
-</script>
+        function reproducir() {
+            let audio = document.getElementById("musicaFondo");
+            audio.play();
+        }
+    </script>
+</body>
+</html>
