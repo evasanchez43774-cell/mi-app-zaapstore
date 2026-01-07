@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Premium -lanzamiento</title>
+    <title>Catálogo Ultra Rápido</title>
     <style>
         body { 
             background-image: url('5486.jpg');
@@ -57,12 +57,6 @@
             text-align: center;
             backdrop-filter: blur(12px);
             border: 2px solid #28a745;
-            transition: 0.3s;
-        }
-
-        .tarjeta-producto:hover {
-            transform: translateY(-5px);
-            border-color: #25D366;
         }
 
         .caracteristicas {
@@ -84,91 +78,72 @@
             border-radius: 10px;
             font-weight: bold;
             transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
         }
 
-        .btn-whatsapp:hover { background: #128C7E; box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4); }
+        .btn-whatsapp:hover { background: #128C7E; transform: scale(1.03); }
     </style>
 </head>
-<body>
+<body onload="cargarProductos()">
 
     <audio id="musicaFondo" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg">
     </audio>
 
-    <h1 style="text-shadow: 3px 3px 15px black; font-size: 2.5rem; margin-bottom: 10px;">Catálogo Inteligente</h1>
-    <p style="margin-bottom: 30px; text-shadow: 1px 1px 5px black;">Busca y consulta por WhatsApp sin intermediarios</p>
+    <h1 style="text-shadow: 3px 3px 15px black;">Mi Catálogo Inteligente</h1>
 
     <div class="buscador-contenedor">
-        <input type="text" placeholder="Escribe: Audífonos, Reloj o Cámara..." id="miBusqueda" onkeyup="buscarProducto()">
+        <input type="text" placeholder="Escribe para buscar..." id="miBusqueda" onkeyup="buscarEnLista()">
         <span style="font-size: 1.5rem;">🔍</span>
     </div>
 
     <div class="contenedor-productos" id="listaProductos">
-        
-        <div class="tarjeta-producto">
-            <h3>Audífonos Sony Noise Cancelling</h3>
-            <div class="caracteristicas">
-                <strong>Ficha Técnica:</strong>
-                <ul>
-                    <li>Cancelación de ruido activa</li>
-                    <li>30 horas de batería</li>
-                    <li>Carga rápida vía USB-C</li>
-                    <li>Micrófono para llamadas HD</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/523334036895?text=Hola,%20me%20interesan%20los%20Audifonos%20Sony" class="btn-whatsapp" onclick="reproducir()">CONSULTAR PRECIO</a>
         </div>
-
-        <div class="tarjeta-producto">
-            <h3>Smartwatch Serie 9 Pro</h3>
-            <div class="caracteristicas">
-                <strong>Ficha Técnica:</strong>
-                <ul>
-                    <li>Pantalla AMOLED Always-on</li>
-                    <li>Sensor de ritmo cardíaco y oxígeno</li>
-                    <li>Resistente al agua (50m)</li>
-                    <li>Compatible con iOS y Android</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/523334036895?text=Hola,%20me%20interesa%20el%20Smartwatch%20Serie%209" class="btn-whatsapp" onclick="reproducir()">CONSULTAR PRECIO</a>
-        </div>
-
-        <div class="tarjeta-producto">
-            <h3>Cámara Mirrorless 4K</h3>
-            <div class="caracteristicas">
-                <strong>Ficha Técnica:</strong>
-                <ul>
-                    <li>Sensor de 24.2 Megapíxeles</li>
-                    <li>Grabación de video en 4K 60fps</li>
-                    <li>Enfoque automático al ojo</li>
-                    <li>Incluye lente 18-55mm</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/523334036895?text=Hola,%20me%20interesa%20la%20Camara%204K" class="btn-whatsapp" onclick="reproducir()">CONSULTAR PRECIO</a>
-        </div>
-
-    </div>
 
     <script>
-        function buscarProducto() {
-            let entrada = document.getElementById('miBusqueda').value.toLowerCase();
-            let productos = document.getElementsByClassName('tarjeta-producto');
+        // --- AQUÍ AGREGAS TUS PRODUCTOS RÁPIDAMENTE ---
+        // Solo copia una línea y cambia el nombre y la descripción
+        const misProductos = [
+            { nombre: "iPhone 15 Pro Max", desc: "Pantalla ProMotion, Titanio, Cámara de 48MP." },
+            { nombre: "Tenis Nike Air", desc: "Suela con cámara de aire, ideales para correr." },
+            { nombre: "Audífonos Bluetooth", desc: "Cancelación de ruido, 40h de batería." },
+            { nombre: "Reloj Inteligente", desc: "GPS integrado, sensor de oxígeno en sangre." },
+            { nombre: "Laptop Oficina", desc: "Procesador i7, 16GB RAM, 512GB SSD." },
+            { nombre: "Cámara de Seguridad", desc: "Visión nocturna, WiFi, audio bidireccional." }
+        ];
 
-            for (let i = 0; i < productos.length; i++) {
-                let titulo = productos[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
-                // Si lo que el usuario escribe está en el título, mostramos el producto
-                if (titulo.includes(entrada)) {
-                    productos[i].style.display = "block";
-                } else {
-                    productos[i].style.display = "none";
-                }
+        // Función que dibuja los productos al abrir la página
+        function cargarProductos() {
+            const contenedor = document.getElementById('listaProductos');
+            contenedor.innerHTML = ""; // Limpiar
+            misProductos.forEach(p => {
+                contenedor.innerHTML += `
+                    <div class="tarjeta-producto">
+                        <h3>${p.nombre}</h3>
+                        <div class="caracteristicas">
+                            <strong>Detalles:</strong>
+                            <p>${p.desc}</p>
+                        </div>
+                        <a href="https://wa.me/523334036895?text=Hola, quiero info de: ${p.nombre}" 
+                           class="btn-whatsapp" onclick="reproducir()">
+                           PEDIR POR WHATSAPP
+                        </a>
+                    </div>
+                `;
+            });
+        }
+
+        // Función de búsqueda
+        function buscarEnLista() {
+            let entrada = document.getElementById('miBusqueda').value.toLowerCase();
+            let tarjetas = document.getElementsByClassName('tarjeta-producto');
+            for (let i = 0; i < tarjetas.length; i++) {
+                let titulo = tarjetas[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                tarjetas[i].style.display = titulo.includes(entrada) ? "block" : "none";
             }
         }
 
         function reproducir() {
-            let audio = document.getElementById("musicaFondo");
-            audio.play();
+            document.getElementById("musicaFondo").play();
         }
     </script>
 </body>
