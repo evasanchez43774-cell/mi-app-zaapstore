@@ -3,5 +3,5 @@
   { "cat": "Electrónica", "nombre": "Samsung Galaxy S24 Ultra", "desc": "IA integrada, Cámara 200MP, S-Pen incluido.", "oferta": true },
   { "cat": "Moda", "nombre": "Tenis Nike Air Force 1", "desc": "Piel genuina, color blanco clásico, todas las tallas.", "oferta": false },
   { "cat": "Hogar", "nombre": "Freidora de Aire Ninja", "desc": "Capacidad 3.8L, 4 funciones programables.", "oferta": true },
-  { "cat": "Deportes", "nombre": "Bicicleta de Montaña R29", "desc": "Cuadro de aluminio, 21 velocidades Shimano.", "oferta": true },
+  { "cat": "Deportes", "nombre": "Bicicleta de Montaña R29", "desc": "Cuadro de aluminio, 21 velocidades Shimano.", "oferta": true }
 ]
