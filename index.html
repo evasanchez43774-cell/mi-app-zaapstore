@@ -1,120 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Premium</title>
-    <style>
-        body { 
-            background-image: url('5486.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            font-family: 'Segoe UI', sans-serif;
-            color: white; 
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+<script>
+    function buscarProducto() {
+        // 1. Obtenemos lo que el usuario escribió
+        let entrada = document.getElementById('miBusqueda').value.toLowerCase();
+        // 2. Obtenemos todas las tarjetas de productos
+        let productos = document.getElementsByClassName('tarjeta-producto');
+
+        // 3. Revisamos cada producto
+        for (let i = 0; i < productos.length; i++) {
+            let titulo = productos[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+            
+            // 4. Si el título contiene lo que buscamos, se queda. Si no, se oculta.
+            if (titulo.includes(entrada)) {
+                productos[i].style.display = "block";
+            } else {
+                productos[i].style.display = "none";
+            }
         }
+    }
 
-        .buscador-falso {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 50px;
-            width: 90%;
-            max-width: 600px;
-            display: flex;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .buscador-falso input {
-            border: none;
-            width: 100%;
-            padding: 10px 20px;
-            font-size: 1rem;
-            outline: none;
-            border-radius: 50px;
-        }
-
-        .contenedor-productos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .tarjeta-producto {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid #28a745;
-        }
-
-        .caracteristicas {
-            text-align: left;
-            font-size: 0.9rem;
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
-
-        .btn-comprar {
-            background: #25D366;
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            display: block;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <h1 style="text-shadow: 2px 2px 10px black;">Mi Catálogo Privado</h1>
-
-    <div class="buscador-falso">
-        <input type="text" placeholder="Buscar en Amazon o Mercado Libre..." id="miBusqueda">
-        <button onclick="alert('Buscando características...')" style="border:none; background:none; cursor:pointer;">🔍</button>
-    </div>
-
-    <div class="contenedor-productos">
-        <div class="tarjeta-producto">
-            <h3>Artículo Destacado</h3>
-            <div class="caracteristicas">
-                <strong>Características:</strong>
-                <ul>
-                    <li>Calidad Premium</li>
-                    <li>Garantía extendida</li>
-                    <li>Envío inmediato</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/523334036895?text=Me%20interesa%20este%20articulo" class="btn-comprar">CONSULTAR DISPONIBILIDAD</a>
-        </div>
-
-        <div class="tarjeta-producto">
-            <h3>Oferta Especial</h3>
-            <div class="caracteristicas">
-                <strong>Características:</strong>
-                <ul>
-                    <li>Modelo 2024</li>
-                    <li>Material resistente</li>
-                    <li>Edición limitada</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/523334036895?text=Quiero%20saber%20mas%20de%20la%20oferta" class="btn-comprar">CONSULTAR DISPONIBILIDAD</a>
-        </div>
-    </div>
-
-    <script>
-        // Aquí podrías programar que al escribir aparezcan cosas
-    </script>
-</body>
-</html>
+    // Esto hace que la música suene al hacer clic en cualquier botón
+    function reproducir() {
+        document.getElementById("musicaFondo").play();
+    }
+</script>
