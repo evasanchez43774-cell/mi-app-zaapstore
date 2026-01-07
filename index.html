@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi App Relajante</title>
+
+    <style>
+        body { 
+            /* Tu foto del escritorio */
+            background-image: url('5486.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white; 
+            text-align: center; 
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contenedor {
+            background-color: rgba(0, 0, 0, 0.7); 
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+        }
+
+        button { 
+            padding: 15px 40px; 
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer; 
+            background: #28a745; 
+            color: white; 
+            border: none; 
+            border-radius: 50px;
+            transition: 0.4s;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="musicaFondo" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="contenedor">
+        <h1 id="saludo">¡Bienvenido a tu espacio!</h1>
+        <p>Presiona el botón para activar la música y saludarte.</p>
+        <button onclick="activarTodo()">Iniciar Experiencia</button>
+    </div>
+
+    <script>
+        function activarTodo() {
+            // 1. Inicia la música
+            const audio = document.getElementById("musicaFondo");
+            audio.play();
+
+            // 2. Pregunta el nombre
+            let nombre = prompt("¿Cómo te llamas?");
+            if (nombre) {
+                document.getElementById("saludo").innerText = "¡Hola, " + nombre + "!";
+                alert("¡Qué bien " + nombre + "! Disfruta de la música relajante.");
+            }
+        }
+    </script>
+
+</body>
+</html>
