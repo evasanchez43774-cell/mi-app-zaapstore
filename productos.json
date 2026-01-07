@@ -1,8 +1,22 @@
 [
   { "cat": "Electrónica", "nombre": "iPhone 15 Pro Max", "desc": "Pantalla Super Retina, Titanio natural, 256GB.", "oferta": true },
   { "cat": "Electrónica", "nombre": "Samsung Galaxy S24 Ultra", "desc": "IA integrada, Cámara 200MP, S-Pen incluido.", "oferta": true },
-  { "cat": "Moda", "nombre": "Tenis Nike Air Force 1", "desc": "Piel genuina, color blanco clásico, todas las tallas.", "oferta": false },
+  { "cat": "Electrónica", "nombre": "Sony WH-1000XM5", "desc": "Audífonos Noise Cancelling, 30h batería.", "oferta": false },
+  { "cat": "Electrónica", "nombre": "MacBook Air M2", "desc": "Pantalla Liquid Retina 13.6p, 8GB RAM.", "oferta": false },
+  { "cat": "Electrónica", "nombre": "Nintendo Switch OLED", "desc": "Pantalla 7 pulgadas, Color Blanco/Neon.", "oferta": true },
+  { "cat": "Moda", "nombre": "Tenis Nike Air Force 1", "desc": "Piel genuina, color blanco clásico.", "oferta": false },
+  { "cat": "Moda", "nombre": "Sudadera Adidas Originals", "desc": "Algodón premium, logo bordado.", "oferta": true },
+  { "cat": "Moda", "nombre": "Reloj Casio G-Shock", "desc": "Resistente a impactos y agua 200m.", "oferta": false },
+  { "cat": "Moda", "nombre": "Lentes Ray-Ban Aviator", "desc": "Armazón dorado, cristal verde clásico.", "oferta": true },
   { "cat": "Hogar", "nombre": "Freidora de Aire Ninja", "desc": "Capacidad 3.8L, 4 funciones programables.", "oferta": true },
-  { "cat": "Deportes", "nombre": "Bicicleta de Montaña R29", "desc": "Cuadro de aluminio, 21 velocidades Shimano.", "oferta": true }
+  { "cat": "Hogar", "nombre": "Cafetera Nespresso Vertuo", "desc": "Sistema de centrifugación, incluye cápsulas.", "oferta": false },
+  { "cat": "Hogar", "nombre": "Aspiradora Robot iRobot", "desc": "Navegación inteligente, compatible con Alexa.", "oferta": true },
+  { "cat": "Salud", "nombre": "Proteína Whey Gold", "desc": "2.2kg, sabor chocolate premium, 24g proteína.", "oferta": false },
+  { "cat": "Salud", "nombre": "Reloj Fitbit Charge 6", "desc": "Monitor de ritmo cardiaco y GPS.", "oferta": true },
+  { "cat": "Herramientas", "nombre": "Taladro DeWalt 20V Max", "desc": "Inalámbrico, incluye 2 baterías.", "oferta": true },
+  { "cat": "Herramientas", "nombre": "Caja de Herramientas Stanley", "desc": "Sistema de 3 niveles con ruedas.", "oferta": false },
+  { "cat": "Juguetes", "nombre": "Lego Icons Optimus Prime", "desc": "1508 piezas, se transforma solo.", "oferta": true },
+  { "cat": "Juguetes", "nombre": "Dron DJI Mini 3", "desc": "Video 4K HDR, menos de 249g.", "oferta": true },
+  { "cat": "Deportes", "nombre": "Balón NBA Wilson", "desc": "Piel sintética, agarre profesional.", "oferta": false },
+  { "cat": "Deportes", "nombre": "Bicicleta de Montaña R29", "desc": "Cuadro de aluminio, 21 velocidades.", "oferta": true }
 ]
-
