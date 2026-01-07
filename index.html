@@ -3,51 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi App Relajante</title>
+    <title>Mi Tienda Online</title>
 
     <style>
         body { 
-            /* Tu foto del escritorio */
+            /* Tu foto de fondo */
             background-image: url('5486.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            background-repeat: no-repeat;
-            
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             color: white; 
-            text-align: center; 
             margin: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
         }
 
-        .contenedor {
-            background-color: rgba(0, 0, 0, 0.7); 
+        .tarjeta-venta {
+            background-color: rgba(0, 0, 0, 0.85); 
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
+            max-width: 400px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid #28a745; /* Borde verde para resaltar */
         }
 
-        button { 
-            padding: 15px 40px; 
+        .precio {
+            font-size: 2.5rem;
+            color: #28a745;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .descripcion {
             font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #ddd;
+        }
+
+        .btn-whatsapp { 
+            display: inline-block;
+            width: 100%;
+            padding: 15px; 
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer; 
-            background: #28a745; 
+            background: #25D366; /* Verde oficial de WhatsApp */
             color: white; 
             border: none; 
-            border-radius: 50px;
-            transition: 0.4s;
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            transition: 0.3s;
+            text-decoration: none;
+            box-shadow: 0px 4px 15px rgba(37, 211, 102, 0.3);
         }
 
-        button:hover {
-            transform: scale(1.1);
-            background: #218838;
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            background: #128C7E;
+            box-shadow: 0px 6px 20px rgba(37, 211, 102, 0.5);
         }
     </style>
 </head>
@@ -57,24 +74,24 @@
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="contenedor">
-        <h1 id="saludo">¡Bienvenido a tu espacio!</h1>
-        <p>Presiona el botón para activar la música y saludarte.</p>
-        <button onclick="activarTodo()">Iniciar Experiencia</button>
+    <div class="tarjeta-venta">
+        <h1>Producto Exclusivo</h1>
+        <p class="precio">$99.00</p>
+        
+        <p class="descripcion">
+            ¡Hola! Estás a un paso de adquirir nuestro mejor producto. Haz clic en el botón de abajo para concretar tu compra por WhatsApp.
+        </p>
+        
+        <a href="https://wa.me/523334036895?text=Hola,%20me%20interesa%20comprar%20tu%20producto" 
+           class="btn-whatsapp" 
+           onclick="reproducir()">
+           COMPRAR POR WHATSAPP
+        </a>
     </div>
 
     <script>
-        function activarTodo() {
-            // 1. Inicia la música
-            const audio = document.getElementById("musicaFondo");
-            audio.play();
-
-            // 2. Pregunta el nombre
-            let nombre = prompt("¿Cómo te llamas?");
-            if (nombre) {
-                document.getElementById("saludo").innerText = "¡Hola, " + nombre + "!";
-                alert("¡Qué bien " + nombre + "! Disfruta de la música relajante.");
-            }
+        function reproducir() {
+            document.getElementById("musicaFondo").play();
         }
     </script>
 
