@@ -1,71 +1,74 @@
-
-
 // =========================================================================
-//           EL CEREBRO INTEGRADO DE PRECIOS Y LOGÍSTICA - ZAAPSTORE
+// EL CEREBRO INTEGRADO DE PRECIOS Y LOGÍSTICA - ZAAPSTORE
 // =========================================================================
+
 // --- CONFIGURACIÓN DE CONEXIÓN SEGURA ---
 Sea apiKey = process.env.SCRAPER_API_KEY;
 
 // --- FUNCIÓN DE CONEXIÓN A SCRAPERAPI ---
 asíncrono Función llamarServicioScraper(urlProducto, llave) {
     Sea urlFinal = "http://api.scraperapi.com?api_key=" + llave + "&url=" + urlProducto;
-    // Aquí el motor realizará la petición al sitio web externo
     Sea respuesta = await obtenerDatos(urlFinal);
     Regreso respuesta;
 }
 
 // 1. SIMULACIÓN DE TU BODEGA LOCAL
-let inventarioLocalPañales = {
+Sea inventarioLocalPañales = {
     "Huggies Ultra Comfort": 0,
     "Huggies Supreme": 0,
-    "BB Tips": 0
+    "Consejos BB": 0
 };
 
 // 2. LÓGICA DE AJUSTE LOGÍSTICO (1 A 2 DÍAS)
-function calcularFechaEntregaFinal(diasOriginales) {
-    if (diasOriginales === 1) return 2;
-    if (diasOriginales >= 3 && diasOriginales <= 4) return diasOriginales + 1;
-    return diasOriginales + 2; // Para compras internacionales y otros
+Función calcularFechaEntregaFinal(diasOriginales) {
+    si (diasOriginales === 1) Regreso 2;
+    si (diasOriginales >= 3 && diasOriginales <= 4) Regreso diasOriginales + 1;
+    Regreso diasOriginales + 2; 
 }
 
 // 3. CAPA DE NORMALIZACIÓN (Ocultamiento de fuentes y limpieza)
-function limpiarDatosProducto(productoAmazon) {
-    return {
-        nombre: productoAmazon.titulo,
-        descripcion: productoAmazon.descripcion,
-        imagenes: productoAmazon.galeria,
+Función limpiarDatosProducto(productoAmazon) {
+    Regreso {
+        nombre: productoAmazon.Título,
+        Descripción: productoAmazon.Descripción,
+        imágenes: productoAmazon.Galería,
         vendedor: "ZaapStore",
         formaPago: "Aceptamos pagos locales en Zapotlanejo y transferencia segura."
     };
 }
 
 // 4. FUNCIÓN PRINCIPAL DE PROCESAMIENTO
-async function procesarProductoParaCliente(productoAmazon, codigoProducto, quiereEnvioDomicilio) {
-    let esPañalEspecial = ["Huggies Ultra Comfort", "Huggies Supreme", "BB Tips"].includes(codigoProducto);
-    let esAbarrotesOSuper = productoAmazon.categoria === "abarrotes" || productoAmazon.categoria === "bebe";
+asíncrono Función procesarProductoParaCliente(urlAmazon, codProducto, quiereEnvioDomicilio) {
     
+    // Primero, obtenemos los datos usando nuestra función de conexión y la API Key
+    Sea productoAmazon = await llamarServicioScraper(urlAmazon, apiKey);
+    
+    Sea esPañalEspecial = ["Huggies Ultra Comfort", "Huggies Supreme", "Consejos BB"].incluye(codProducto);
+    Sea esAbarrotesOSuper = productoAmazon.Categoría === "abarrotes" || productoAmazon.Categoría === "Bebe";
+
     // Cálculo de costos y competencia (Regla C y B)
-    let miCostoBase = productoAmazon.precioConDescuento;
-    if (esPañalEspecial && productoAmazon.esCaja === true) miCostoBase /= 3;
-    
-    let precioFinalSugerido = miCostoBase + (productoAmazon.envioGratisProveedor ? 0 : productoAmazon.costoEnvioOriginal);
-    if (quiereEnvioDomicilio) precioFinalSugerido += 20;
+    Sea miCostoBase = productoAmazon.precioConDescuento;
+    si (esPañalEspecial && productoAmazon.esCaja === Cierto) miCostoBase /= 3;
+
+    Sea precioFinalSugerido = miCostoBase + (productoAmazon.envioGratisProveedor ? 0 : productoAmazon.costoEnvioOriginal);
+    si (quiereEnvioDomicilio) precioFinalSugerido += 20;
 
     // Calcular días ajustados
-    let diasTotales = calcularFechaEntregaFinal(productoAmazon.diasEntregaOriginales);
-    
-    // Preparar datos limpios
-    let datosLimpios = limpiarDatosProducto(productoAmazon);
+    Sea diasTotales = calcularFechaEntregaFinal(productoAmazon.diasEntregaOriginales);
 
-    return {
-        origen: productoAmazon.esPlaneyAhorra ? "AMAZON (PlaneyAhorra)" : "PROVEEDOR REGULAR",
+    // Preparar datos limpios
+    Sea datosLimpios = limpiarDatosProducto(productoAmazon);
+
+    Regreso {
+        Orígenes: productoAmazon.esPlaneyAhorra ? "AMAZONA (PlaneyAhorra)" : "PROVEEDOR REGULAR",
         nombre: datosLimpios.nombre,
-        descripcion: datosLimpios.descripcion,
-        imagenes: datosLimpios.imagenes,
+        Descripción: datosLimpios.Descripción,
+        imágenes: datosLimpios.imágenes,
         precioFinal: precioFinalSugerido,
-        entregaEstimada: `Tu pedido llegará en ${diasTotales} días a tu domicilio en Zapotlanejo.`,
+        entregaEstimada: 'Tu pedido llegará en ${diasTotales} días a tu domicilio en Zapotlanejo.',
         formaPago: datosLimpios.formaPago,
         nota: "Envío asegurado por ZaapStore",
-        alertaAdmin: esPañalEspecial && inventarioLocalPañales[codigoProducto] > 0 ? "Venta de stock físico." : ""
+        alertaAdmin: esPañalEspecial && inventarioLocalPañales[codProducto] > 0 ? "Venta de stock físico." : "--"
     };
 }
+
