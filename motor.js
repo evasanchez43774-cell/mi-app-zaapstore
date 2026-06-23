@@ -3,6 +3,16 @@
 // =========================================================================
 //           EL CEREBRO INTEGRADO DE PRECIOS Y LOGÍSTICA - ZAAPSTORE
 // =========================================================================
+// --- CONFIGURACIÓN DE CONEXIÓN SEGURA ---
+Sea apiKey = process.env.SCRAPER_API_KEY;
+
+// --- FUNCIÓN DE CONEXIÓN A SCRAPERAPI ---
+asíncrono Función llamarServicioScraper(urlProducto, llave) {
+    Sea urlFinal = "http://api.scraperapi.com?api_key=" + llave + "&url=" + urlProducto;
+    // Aquí el motor realizará la petición al sitio web externo
+    Sea respuesta = await obtenerDatos(urlFinal);
+    Regreso respuesta;
+}
 
 // 1. SIMULACIÓN DE TU BODEGA LOCAL
 let inventarioLocalPañales = {
