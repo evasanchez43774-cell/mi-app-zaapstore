@@ -1,70 +1,21 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>ZaapStore - Zapotlanejo</title>
-    <!-- Motor de búsqueda -->
-    <script src="motor.js"></script>
-    <style>
-        .tarjeta-producto { border: 1px solid #ccc; margin: 10px; padding: 10px; width: 200px; display: inline-block; vertical-align: top; }
-        .btn-whatsapp { display: block; margin-top: 10px; padding: 5px; background-color: #25d366; color: white; text-decoration: none; text-align: center; border-radius: 5px; }
-    </style>
-</head>
-<body>
-
-    <!-- Buscador Integrado -->
-    <div id="buscador">
-        <input type="text" id="miBusqueda" placeholder="¿Qué estás buscando en ZaapStore?">
-        <button onclick="ejecutarBusquedaEspecial()">Buscar en ZaapStore</button>
-    </div>
-
-    <!-- Resultados -->
-    <div id="contenedorResultados"></div>
-
-    <!-- Elementos adicionales -->
-    <div id="reloj"></div>
-    <audio id="musicaFondo" src="tu-musica.mp3"></audio>
-
-    <script>
-        // Función de búsqueda conectada a tu motor
+  <script>
         async function ejecutarBusquedaEspecial() {
             const termino = document.getElementById('miBusqueda').value;
             const contenedor = document.getElementById('contenedorResultados');
+            contenedor.innerHTML = "Buscando en nuestro inventario...";
             
-            contenedor.innerHTML = "Buscando en catálogo global...";
+            const productos = await buscarProductoEnTiempoReal(termino);
+            contenedor.innerHTML = "";
             
-            try {
-                const productos = await buscarProductoEnTiempoReal(termino);
-                contenedor.innerHTML = "";
-                
-                productos.forEach(p => {
-                    contenedor.innerHTML += `
-                        <div class="tarjeta-producto">
-                            <img src="${p.imagen}" width="100">
-                            <h3>${p.nombre}</h3>
-                            <p style="font-size:0.9rem">${p.desc || ''}</p>
-                            <p>Precio: ${p.precio}</p>
-                            <a href="https://wa.me/523334036895?text=Info de: ${p.nombre}" 
-                               class="btn-whatsapp" onclick="reproducir()">WHATSAPP</a>
-                        </div>`;
-                });
-            } catch (error) {
-                contenedor.innerHTML = "Error al conectar. Verifica tu motor.";
-            }
+            productos.forEach(p => {
+                contenedor.innerHTML += `
+                    <div class="tarjeta-producto">
+                        <h3>${p.nombre}</h3>
+                        <p>Precio: ${p.precio}</p>
+                        <button onclick="adquirirProducto('${p.url}')" class="btn-whatsapp">
+                            Adquirir en ZaapStore
+                        </button>
+                    </div>`;
+            });
         }
-
-        // Función del Reloj
-        function actualizarReloj() {
-            const ahora = new Date();
-            const fin = new Date(); fin.setHours(23, 59, 59);
-            const dif = fin - ahora;
-            const h = Math.floor((dif / 3600000) % 24), m = Math.floor((dif / 60000) % 60), s = Math.floor((dif / 1000) % 60);
-            document.getElementById("reloj").innerHTML = `${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
-        }
-        setInterval(actualizarReloj, 1000);
-
-        // Función de Música
-        function reproducir() { document.getElementById("musicaFondo").play(); }
     </script>
-</body>
-</html>
