@@ -1,21 +1,19 @@
-  <script>
-        async function ejecutarBusquedaEspecial() {
-            const termino = document.getElementById('miBusqueda').value;
-            const contenedor = document.getElementById('contenedorResultados');
-            contenedor.innerHTML = "Buscando en nuestro inventario...";
-            
-            const productos = await buscarProductoEnTiempoReal(termino);
-            contenedor.innerHTML = "";
-            
-            productos.forEach(p => {
-                contenedor.innerHTML += `
-                    <div class="tarjeta-producto">
-                        <h3>${p.nombre}</h3>
-                        <p>Precio: ${p.precio}</p>
-                        <button onclick="adquirirProducto('${p.url}')" class="btn-whatsapp">
-                            Adquirir en ZaapStore
-                        </button>
-                    </div>`;
-            });
-        }
-    </script>
+  async function ejecutarBusquedaEspecial() {
+    const termino = document.getElementById('miBusqueda').value;
+    const contenedor = document.getElementById('contenedorResultados');
+    contenedor.innerHTML = "Buscando en nuestro inventario...";
+    
+    const productos = await buscarProductoEnTiempoReal(termino);
+    contenedor.innerHTML = "";
+    
+    productos.forEach(p => {
+        contenedor.innerHTML += `
+            <div class="tarjeta-producto">
+                <h3>${p.nombre}</h3>
+                <p>Precio: ${p.precio}</p>
+                <button onclick="adquirirProducto('${p.url}')" class="btn-whatsapp">
+                    Adquirir en ZaapStore
+                </button>
+            </div>`;
+    });
+}
