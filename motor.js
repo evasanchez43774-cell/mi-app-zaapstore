@@ -1,13 +1,10 @@
-// Motor de búsqueda de ZaapStore
-// Este archivo gestiona la lógica de búsqueda y redirección autónoma
-
+// Los comandos (async, function, return) están en inglés porque son lenguaje de programación
+// Los nombres (buscarProducto, categoria) están en español porque tú los elegiste así
 async function buscarProductoEnTiempoReal(termino) {
     try {
-        // Carga los productos desde tu archivo JSON
-        const response = await fetch('productos.json');
-        const productos = await response.json();
+        const respuesta = await fetch('productos.json');
+        const productos = await respuesta.json();
         
-        // Filtra los productos sin revelar la fuente externa
         const busqueda = termino.toLowerCase();
         return productos.filter(p => 
             p.nombre.toLowerCase().includes(busqueda) || 
@@ -19,8 +16,6 @@ async function buscarProductoEnTiempoReal(termino) {
     }
 }
 
-// Función de redirección que mantiene la fachada de ZaapStore
 function adquirirProducto(urlDestino) {
-    // Redirecciona al usuario al destino configurado en el JSON
     window.location.href = urlDestino;
 }
