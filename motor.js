@@ -1,23 +1,26 @@
-// Motor de búsqueda de ZaapStore - Enmascarador de origen
+// Motor de búsqueda de ZaapStore
+// Este archivo gestiona la lógica de búsqueda y redirección autónoma
+
 async function buscarProductoEnTiempoReal(termino) {
     try {
-        const respuesta = await fetch('productos.json');
-        const productos = await respuesta.json();
+        // Carga los productos desde tu archivo JSON
+        const response = await fetch('productos.json');
+        const productos = await response.json();
         
-        // Filtramos productos ocultando la fuente original
+        // Filtra los productos sin revelar la fuente externa
         const busqueda = termino.toLowerCase();
         return productos.filter(p => 
             p.nombre.toLowerCase().includes(busqueda) || 
             p.categoria.toLowerCase().includes(busqueda)
         );
     } catch (error) {
-        console.error("Error al conectar con la base de datos de ZaapStore:", error);
+        console.error("Error al acceder al inventario de ZaapStore:", error);
         return [];
     }
 }
 
-// Función que redirige al usuario manteniendo la fachada de ZaapStore
+// Función de redirección que mantiene la fachada de ZaapStore
 function adquirirProducto(urlDestino) {
-    // Aquí puedes añadir un mensaje de "Redirigiendo a almacén..." si deseas
+    // Redirecciona al usuario al destino configurado en el JSON
     window.location.href = urlDestino;
 }
