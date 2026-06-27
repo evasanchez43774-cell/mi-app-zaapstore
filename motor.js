@@ -1,7 +1,7 @@
 async function buscarProductoEnTiempoReal(termino) {
     try {
-        const respuesta = await fetch('productos.json');
-        const productos = await respuesta.json();
+        const response = await fetch('productos.json');
+        const productos = await response.json();
         
         const busqueda = termino.toLowerCase();
         return productos.filter(p => 
