@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>ZaapStore - Zapotlanejo</title>
+    <!-- Motor de búsqueda -->
     <script src="motor.js"></script>
     <style>
         .tarjeta-producto { border: 1px solid #ccc; margin: 10px; padding: 10px; width: 200px; display: inline-block; vertical-align: top; }
+        .btn-whatsapp { display: block; margin-top: 10px; padding: 5px; background-color: #25d366; color: white; text-decoration: none; text-align: center; border-radius: 5px; }
     </style>
 </head>
 <body>
 
+    <!-- Buscador Integrado -->
     <div id="buscador">
-        <input type="text" id="miBusqueda" placeholder="¿Qué estás buscando?">
+        <input type="text" id="miBusqueda" placeholder="¿Qué estás buscando en ZaapStore?">
         <button onclick="ejecutarBusquedaEspecial()">Buscar en ZaapStore</button>
     </div>
 
+    <!-- Resultados -->
     <div id="contenedorResultados"></div>
 
+    <!-- Elementos adicionales -->
     <div id="reloj"></div>
     <audio id="musicaFondo" src="tu-musica.mp3"></audio>
 
     <script>
-        // Función principal de búsqueda conectada a tu motor
+        // Función de búsqueda conectada a tu motor
         async function ejecutarBusquedaEspecial() {
             const termino = document.getElementById('miBusqueda').value;
             const contenedor = document.getElementById('contenedorResultados');
@@ -29,16 +34,15 @@
             contenedor.innerHTML = "Buscando en catálogo global...";
             
             try {
-                // Llamada a la lógica del motor que definimos antes
                 const productos = await buscarProductoEnTiempoReal(termino);
-                
-                contenedor.innerHTML = ""; // Limpiar mensaje de espera
+                contenedor.innerHTML = "";
                 
                 productos.forEach(p => {
                     contenedor.innerHTML += `
                         <div class="tarjeta-producto">
                             <img src="${p.imagen}" width="100">
                             <h3>${p.nombre}</h3>
+                            <p style="font-size:0.9rem">${p.desc || ''}</p>
                             <p>Precio: ${p.precio}</p>
                             <a href="https://wa.me/523334036895?text=Info de: ${p.nombre}" 
                                class="btn-whatsapp" onclick="reproducir()">WHATSAPP</a>
@@ -49,7 +53,7 @@
             }
         }
 
-        // Funciones auxiliares existentes
+        // Función del Reloj
         function actualizarReloj() {
             const ahora = new Date();
             const fin = new Date(); fin.setHours(23, 59, 59);
@@ -59,6 +63,7 @@
         }
         setInterval(actualizarReloj, 1000);
 
+        // Función de Música
         function reproducir() { document.getElementById("musicaFondo").play(); }
     </script>
 </body>
