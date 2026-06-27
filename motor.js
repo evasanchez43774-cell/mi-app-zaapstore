@@ -1,5 +1,3 @@
-// Los comandos (async, function, return) están en inglés porque son lenguaje de programación
-// Los nombres (buscarProducto, categoria) están en español porque tú los elegiste así
 async function buscarProductoEnTiempoReal(termino) {
     try {
         const respuesta = await fetch('productos.json');
